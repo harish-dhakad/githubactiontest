@@ -1,2 +1,3 @@
 .git
-.github/workflows/*
+.github/workflows/actions.yml
+.github/workflows/simple.yml
