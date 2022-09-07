@@ -18,10 +18,12 @@ jobs:
 #     - name: Run build task
 #       run: npm run build
     - name: Deploy to Server
-      uses: easingthemes/ssh-deploy@main
+      uses: appleboy/ssh-action@master
       env:
-          SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
-          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-          REMOTE_USER: ${{ secrets.REMOTE_USER }}
-          TARGET: ${{ secrets.REMOTE_TARGET }}
-          REMOTE_PORT: 22
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USER }}
+#           TARGET: ${{ secrets.REMOTE_TARGET }}
+          script: |
+              whoami
+              ls -al
