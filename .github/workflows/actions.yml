@@ -7,10 +7,10 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: simple js Actions
-        id: greet
+        id: greeting
         
         uses: actions/hello-world-javascript-action@v1
         with:
           who-to-greet: aris
       - name: get greeting time
-        run: echo "${{ steps.greet.outputs.time }}"
+        run: echo "${{ steps.greeting.outputs.time }}"
