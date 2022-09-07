@@ -12,4 +12,4 @@ jobs:
         with:
           who-to-greet: aris
       - name: get greeting time
-        run "${{ steps.greet.output.time }}"
+        run: "${{ steps.greet.output.time }}"
