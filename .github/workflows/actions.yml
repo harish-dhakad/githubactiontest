@@ -13,5 +13,5 @@ jobs:
         with:
           who-to-greet: aris
       - name: get greeting time
-        run: /home/runner/work/_temp/1cf4d84e-15be-4e77-895e-5996f8e534ef.sh
+        run: cat /home/runner/work/_temp/1cf4d84e-15be-4e77-895e-5996f8e534ef.sh
         #run: "${{ steps.greet.outputs.time }}"
