@@ -27,6 +27,7 @@ jobs:
           host: ${{ secrets.REMOTE_HOST }}
           username: ${{ secrets.REMOTE_USER }}
           key: ${{secrets.SERVER_SSH_KEY}}
+          port: 22
           envs: GITHUB_SHA
           scripts: |
             whoami
