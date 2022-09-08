@@ -6,7 +6,8 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
+      - name: checkout
+        uses: actions/checkout@v2
       - name: Docker login
         env:
           DOCKER_USER: ${{secrets.DOCKER_USER}}
@@ -21,7 +22,7 @@ jobs:
           docker tag $REPO:latest ${{secrets.DOCKER_USER}}/$REPO:latest
           docker push ${{secrets.DOCKER_USER}}/$REPO
       - name: Docker Pull & Run From Hub
-      - uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.REMOTE_HOST }}
           username: ${{ secrets.REMOTE_USER }}
