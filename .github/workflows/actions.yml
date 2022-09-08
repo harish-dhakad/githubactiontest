@@ -8,19 +8,19 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v2
-#       - name: Docker login
-#         env:
-#           DOCKER_USER: ${{secrets.DOCKER_USER}}
-#           DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
-#         run: 
-#           docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-#       - name: Docker Push
-#         env:
-#           REPO: backend-repo
-#         run: |
-#           docker build -t $REPO .
-#           docker tag $REPO:latest ${{secrets.DOCKER_USER}}/$REPO:latest
-#           docker push ${{secrets.DOCKER_USER}}/$REPO
+      - name: Docker login
+        env:
+          DOCKER_USER: ${{secrets.DOCKER_USER}}
+          DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+        run: 
+          docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+      - name: Docker Push
+        env:
+          REPO: backend-repo
+        run: |
+          docker build -t $REPO .
+          docker tag $REPO:latest ${{secrets.DOCKER_USER}}/$REPO:latest
+          docker push ${{secrets.DOCKER_USER}}/$REPO
       - name: Docker Pull & Run From Hub
         uses: appleboy/ssh-action@master
         with:
@@ -30,7 +30,7 @@ jobs:
           envs: GITHUB_SHA
           scripts: |
             sudo docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-            sudo docker pull ${{secrets.DOCKER_USER}}/backend-repo
+            sudo docker pull ${{secrets.DOCKER_USER}}/$REPO
             sudo docker stop backend_server
             sudo docker rm backend_server
             sudo docker run --detach --name backend_server -p 3000:3000 harishdhakad/backend-repo
