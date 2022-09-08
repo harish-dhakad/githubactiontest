@@ -3,7 +3,20 @@ on:
     push:
       branches: [master]
 jobs:
+  job1:
+    name: Job 1
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Sleep and Run
+      run: |
+        echo "Sleeping for 10"
+        sleep 10
+
   build-and-deploy:
+    name: job2
+    needs: job1
+
     runs-on: ubuntu-20.04
     steps:
       - name: checkout
