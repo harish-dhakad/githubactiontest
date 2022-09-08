@@ -46,6 +46,6 @@ jobs:
             whoami
             sudo docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
             sudo docker pull ${{secrets.DOCKER_USER}}/backend-repo
-            #sudo docker stop backend_server
-            #sudo docker rm backend_server
+            sudo docker stop backend_server
+            sudo docker rm backend_server
             sudo docker run --detach --name backend_server -p 3000:3000 harishdhakad/backend-repo
