@@ -1,7 +1,7 @@
 name: CI/CD
 on: 
     push:
-      branches: [master]
+      branches: [main]
 jobs:
   build-and-deploy:
     runs-on: ubuntu-20.04
@@ -20,4 +20,16 @@ jobs:
           docker build -t $REPO .
           docker tag $REPO:latest ${{secrets.DOCKER_USER}}/$REPO:latest
           docker push ${{secrets.DOCKER_USER}}/$REPO
-          
+      - name: Docker Pull & Run From Hub
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USER }}
+          key: ${{secrets.SERVER_SSH_KEY}}
+          envs: GITHUB_SHA
+          scripts: |
+            docker login
+            docker pull ${{secrets.DOCKER_USER}}/$REPO
+            docker stop backend_server
+            docker rm backend_server
+            docker run --detach --name backend_server -p 3000:3000 harishdhakad/backend-repo
